@@ -11,7 +11,7 @@ import com.raul.demo.entities.Worker;
 @Component	
 /*@FeignClient recebe o nome do projeto (spring.application.name). A interface do FeignClient é para
 fazer requisições de APIs externas*/
-@FeignClient(name = "hr-worker", url = "localhost:8001", path = "/workers")
+@FeignClient(name = "hr-worker", path = "/workers")
 public interface WorkerFeignClient {
 
 	//Tipo de chamada WebService é da mesma forma que foi criada no outro projeto
