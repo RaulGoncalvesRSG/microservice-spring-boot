@@ -8,7 +8,8 @@ import org.springframework.web.client.RestTemplate;
 public class AppConfig {
 
 	/*Padrão de projeto singleton. Método para registrar uma instância única do RestTemplate. 
-	 * Essa instância única fica disponível para injetar em outros componentes*/
+	 * Essa instância única fica disponível para injetar em outros componentes. Através do 
+	 * RestTemplate, será possível fazer requisição de APIs externas*/
 	@Bean		
 	public RestTemplate restTemplate() {
 		return new RestTemplate();

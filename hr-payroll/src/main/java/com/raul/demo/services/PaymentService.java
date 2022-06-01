@@ -1,33 +1,21 @@
 package com.raul.demo.services;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.raul.demo.entities.Payment;
 import com.raul.demo.entities.Worker;
+import com.raul.demo.feignclients.WorkerFeignClient;
 
 //Este projeto n tem repository, pois não tem BD, apenas regra de negócios
 @Service
 public class PaymentService {
-
-	@Value("${hr-worker.host}")		//Pega a propriedade criada no application.properties
-	private String workerHost;
 	
 	@Autowired
-	private RestTemplate restTemplate;
+	private WorkerFeignClient workerFeignClient;
 
 	public Payment getPayment(long workerId, int days) {
-		Map<String, String> uriVariables = new HashMap<>();		//Variáveis da URI
-		uriVariables.put("id", ""+workerId);		//ID do trabalhador que passa na requisição
-		
-		//Faz uma requisião para uma API externa usando RestTemplate
-		//O getForObject pega a URL da requisição, o tipo da classe de retorno e as variáveis da URI
-		Worker worker = restTemplate.getForObject(workerHost + "/workers/{id}", Worker.class, uriVariables); 
+		Worker worker = workerFeignClient.findById(workerId).getBody();
 		return new Payment(worker.getName(), worker.getDailyIncome(), days);
 	}
 }
