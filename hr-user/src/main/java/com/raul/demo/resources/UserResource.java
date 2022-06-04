@@ -24,7 +24,7 @@ public class UserResource {
 		return ResponseEntity.ok(obj);
 	}	
 	
-	@GetMapping(value = "/search")
+	@GetMapping(value = "/search")	//@RequestParam é um parâmetro opcional
 	public ResponseEntity<User> findById(@RequestParam String email) {
 		User obj = repository.findByEmail(email);
 		return ResponseEntity.ok(obj);
