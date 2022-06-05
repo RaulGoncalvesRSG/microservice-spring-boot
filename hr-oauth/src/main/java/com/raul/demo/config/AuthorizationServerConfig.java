@@ -40,11 +40,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()		//Autenticação em memória
-		.withClient("myappname123")
-		.secret(passwordEncoder.encode("myappsecret123"))		//Senha do app
+		.withClient("myappname123")						  	//Nome do app
+		.secret(passwordEncoder.encode("myappsecret123"))	//Senha do app
 		.scopes("read", "write")
 		.authorizedGrantTypes("password")
-		.accessTokenValiditySeconds(86400);			//Token de 24hrs
+		.accessTokenValiditySeconds(86400);					//Token de 24hrs
 	}
 
 	@Override
