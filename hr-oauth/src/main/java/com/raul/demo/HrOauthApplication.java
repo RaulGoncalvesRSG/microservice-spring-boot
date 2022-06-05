@@ -8,6 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @EnableEurekaClient
 @SpringBootApplication
+//Servidor de autorizações
 public class HrOauthApplication {
 
 	public static void main(String[] args) {
