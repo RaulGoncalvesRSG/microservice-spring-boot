@@ -1,6 +1,7 @@
 package com.raul.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +18,12 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableAuthorizationServer
 //Configuração do servidor de autorização
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+	
+	//Lê as propriedades do arquivo properties msmo q ele esteja no servidor de configuração
+	@Value("${oauth.client.name}")
+	private String clientName;
+	@Value("${oauth.client.secret}")
+	private String clientSecret;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -40,8 +47,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()		//Autenticação em memória
-		.withClient("myappname123")						  	//Nome do app
-		.secret(passwordEncoder.encode("myappsecret123"))	//Senha do app
+		.withClient(clientName)						  	//Nome do app
+		.secret(passwordEncoder.encode(clientSecret))	//Senha do app
 		.scopes("read", "write")
 		.authorizedGrantTypes("password")
 		.accessTokenValiditySeconds(86400);					//Token de 24hrs
