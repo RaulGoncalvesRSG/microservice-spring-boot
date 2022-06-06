@@ -37,7 +37,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Override		//Configura as autorizações
 	public void configure(HttpSecurity http) throws Exception {
-		
 		http.authorizeRequests()
 		//Todos caminhos públicos podem ser acessados mesmo q n esteja logado, pois são endpoints públicos
 		.antMatchers(PUBLIC).permitAll()
@@ -54,21 +53,23 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration corsConfig = new CorsConfiguration();
-		corsConfig.setAllowedOrigins(Arrays.asList("*"));
+		corsConfig.setAllowedOrigins(Arrays.asList("*"));		//Quais origens poderão acessar o sistema
+		//Métodos HTTP permitidos
 		corsConfig.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "PATCH"));
-		corsConfig.setAllowCredentials(true);
+		corsConfig.setAllowCredentials(true);			//Permite credenciais
+		//Quais cabeçalhos serão permitidos
 		corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 		
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		//Todos caminhos terão as configurações criadas
 		source.registerCorsConfiguration("/**", corsConfig);
 		return source;
 	}
 	
 	@Bean
 	public FilterRegistrationBean<CorsFilter> corsFilter() {
-		FilterRegistrationBean<CorsFilter> bean 
-			= new FilterRegistrationBean<>(new CorsFilter(corsConfigurationSource()));
-		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+		FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(corsConfigurationSource()));
+		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);		//HIGHEST_PRECEDENCE é a precedência mais alta de ordem
 		return bean;
 	}
 }

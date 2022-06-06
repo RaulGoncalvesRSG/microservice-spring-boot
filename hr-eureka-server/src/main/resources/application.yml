@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: eureka-server
+#Porta padrão caso não seja especificado. http://localhost:8761 abre a interface do eureka
+#Porta padrão para servidor Eureka = 8761
+server:
+  port: ${PORT:8761}
+#Configurações para este projeto ser apenas um servidor e não um servidor e cliente
+eureka:
+  client:
+#register-with como false para ele n tentar se auto registrar no eureka e evitar uma exceção
+    register-with-eureka: false
+    fetch-registry: false
