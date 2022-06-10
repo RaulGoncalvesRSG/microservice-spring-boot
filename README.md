@@ -8,6 +8,8 @@ servidor de configuração, microsserviço para o API Gateway Zull e o microsser
 ## Arquitetura do Microsserviço
 ![Arquitetura](imagens/Arquitetura.png)
 
+![Containers](imagens/containers.png)
+
 # Criando e testando containers Docker
 
 ## Criar rede docker para sistema hr
@@ -37,7 +39,7 @@ mvnw clean package
 
 docker build -t hr-config-server:v1 .
 
-docker run -p 8888:8888 --name hr-config-server --network hr-net -e GITHUB_USER=acenelio -e GITHUB_PASS= hr-config-server:v1
+docker run -p 8888:8888 --name hr-config-server --network hr-net -e GITHUB_USER=raul -e GITHUB_PASS= hr-config-server:v1
 ```
 
 ## hr-eureka-server
